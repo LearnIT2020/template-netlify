@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+　  <meta charset="utf-8">
+    <title>Quiz</title>
+    <meta name="description" content="Quiz">
+    <meta name="author" content="yellow-streritzia">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="default.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <script type="text/javascript" src="./app.js"></script>
+  </head>
+  <body>
+    <div class="box">
+      <h2 class="title">
+        Quiz!
+      </h2>
+    </div>
+
+    <div class="box">
+      <div class="field">
+        <div class="control">
+          <textarea class="textarea is-primary" id="originalText" name="originalText"
+                    cols="45" rows="5" maxlength="500" placeholder="文章を入力"></textarea>
+        </div>
+      </div>
+      <button class="button is-small is-primary is-light" id="buttonExecCheck" name="buttonExecCheck">チェックする</button>
+      <button class="button is-small is-rounded show-modal" data-target="camera-modal">
+        <span class="icon is-small">
+          <i class="fas fa-camera"></i>
+        </span>
+        <ruby>画像取込<rt>がぞうとりこみ</rt></ruby>
+      </button>
+      
+      <div class="field">
+        <div class="box">
+          <div class="media-content">
+            <div class="content" id="resultArea" name="resultArea">
+            答え
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>© 2020 yellow-streritzia All rights reserved.</strong>
+        </p>
+      </div>
+    </footer>
+
+    <div class="modal" id="score-modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">カメラから入力</p>
+          <button class="button is-rounded close-modal stop-camera" aria-label="close" data-target="camera-modal">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </header>
+        <section class="modal-card-body">
+          <div class="box">
+            <button id="start-camera" type="button" class="button is-small">
+              <span class="icon is-small">
+                <i class="fas fa-video"></i>
+              </span>
+              <span>開始</span>
+            </button>
+            <button id="capture-camera" type="button" class="button is-small">撮影</button>
+            <button id="select-file" type="button" class="button is-small">
+              <span class="icon is-small">
+                <i class="fas fa-file-import"></i>
+              </span>
+            </button>
+            <input type="file" id="select-file-input" accept="image/*" capture="camera" style="display:none" />
+          </div>
+          <video id="video-camera" style="width:60vw;height:50vh;"></video>
+          <canvas id="preview-canvas" style="width:60vw;display:none"></canvas>
+          <canvas id="result-canvas" width="300" height="300" style="display:none"></canvas>
+          <audio id="capture-sound" preload="auto">
+            <source src="camera-shutter1.mp3" type="audio/mp3">
+          </audio>
+        </section>
+        <footer class="modal-card-foot">
+            <div class="select is-small">
+              <select id="detect-direction">
+                <option value="horizontal">横書き</option>
+                <option value="vertical">縦書き</option>
+              </select>
+            </div>
+            <label class="checkbox">
+              <input type="checkbox" id="local-server-flag">
+              <label class="label is-small">サーバーで実行</label>
+            </label>
+            <button id="recognize-capture" type="button" class="button is-small">
+              <span class="icon is-small">
+                <i class="fas fa-microscope"></i>
+              </span>
+              <span>読取り</span>
+            </button>
+            <button id="close-camera-modal" type="button" class="button is-small is-danger close-modal stop-camera" 
+              data-target="camera-modal">閉じる</button>
+        </footer>
+      </div>
+    </div>
+
+    <div class="modal" id="progress-modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+        </header>
+        <section class="modal-card-body">
+          <h4 id="progress-caption">Progress</h4>
+          <progress id="progressbar" class="progress is-danger" max="100">30%</progress>
+        </section>
+        <footer class="modal-card-foot">
+        </footer>
+      </div>
+    </div>
+
+  </body>
+</html>
